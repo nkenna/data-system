@@ -1,0 +1,175 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../media/favicon.ico">
+    <title>CSTD DATA SYSTEM</title>
+    <link href="../css/bulma.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Rakkas">
+    <link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+    <style>
+            .front {
+              
+              background-image: url("../media/cstd_tr.png");
+              
+            }
+          </style>
+</head>
+
+<body class="front">
+        <%- include('top'); -%>
+
+
+        <div class="container"> <br><br>
+            <div class="columns">
+                <div class="column is-7">
+                    <section>
+                        <div class="container">
+                            <div class="columns">
+                                <div class="column is-6">
+                                    <div class="container">
+                                    <form action="/api/toprofile" method="POST">
+                                        <div class="field column is-6">
+                                                <label class="label">Enter PF number to enter Staff Profile</label>
+                                                <div class="control">
+                                                <input class="input is-danger is-rounded" type="text" placeholder="Enter PF number to search" name="pf">
+                                              </div>
+                                            </div>
+                                    
+                                            <div class="field is-grouped is-6">
+                                                    <div class="control">
+                                                      <button type="submit" class="button is-danger is-outlined is-rounded">Continue</button>
+                                                    </div>
+                                                    <div class="control">
+                                                      <button type="reset" class="button is-danger is-outlined is-rounded">Cancel</button>
+                                                    </div>
+                                                  </div>
+                                    </form>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="section">
+                        <div class="container">
+                            <div class="columns">
+                                <div class="column is-5">
+                                        <form action="/api/toprofile-filter" method="POST">
+                                            
+                                            <div class="field is-horizontal">
+                                                    <div class="field-label">
+                                                      <label class="label">Search Option</label>
+                                                    </div>
+                                                    <div class="field-body">
+                                                      <div class="field is-narrow is-danger is-rounded">
+                                                        <div class="control">
+                                                          <div class="select is-fullwidth is-danger is-rounded is-hovered">
+                                                            <select name="opt">
+                                                              
+                                                              <option value="optPF">PF number</option>
+                                                              <option value="optName">Surname</option>
+                                                              <option value="optUnit">Unit</option>
+                                                            </select>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                    <div class="field">
+                                                            <p class="control is-expanded has-icons-left">
+                                                              <input class="input is-danger is-rounded" type="text" name="pf" placeholder="Enter term to filter">
+                                                              <span class="icon is-small is-left">
+                                                                <i class="fas fa-user"></i>
+                                                              </span>
+                                                            </p>
+                                                          </div>
+                                                  </div>
+                
+                                            <button class="button is-danger is-rounded is-outlined" type="submit">Filter</button>
+                                        </form>  
+                                </div>
+                            </div>
+                        </div>
+                       
+                
+                         <div class="container">
+                            <div class="columns">
+                                <div class="column is-8 is-centered">
+                                    <table class="table is-centered is-narrow is-striped is-hovered">
+                                        <thead>
+                                            <tr>
+                                                <td>PF</td>
+                                                <td>Avatar</td>
+                                                <td>First Name</td>
+                                                <td>Middle Name</td>
+                                                <td>Last Name</td>
+                                                <td>Unit</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% for(var i = 0; i < staffs.length; i++){ %>
+                                            <tr>
+                                                <td><%= staffs[i].PF %></td>
+                                                <td><img src="<%= staffs[i].mediafile %>" width="50" height="50"></td>
+                                                <td><%= staffs[i].firstname %></td>
+                                                <td><%= staffs[i].middlename %></td>
+                                                <td><%= staffs[i].lastname %></td>
+                                                <td><%= staffs[i].unit %></td>
+                                                <% for(var j = 0; j < leaves.length; j++){ %>
+                                                <% if (staffs[i].PF == leaves[j].PF) { %>
+                                                <td style="background-color: green;"></td>
+                                                <% } else {%>
+                                                    <td style="background-color: red;"></td>
+                                                    <% } %> 
+                                                <% } %>  
+                
+                                                 
+                                                
+                                                <td><a class="button is-danger is-rounded is-outlined" href="/api/a-profile?staffID=<%= staffs[i].PF %>"</a>View Profile</a></td>
+                                            </tr>   
+                                            <% } %> 
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="column is-5">
+                    
+                        <div class="content">
+                            <p class="subtitle">NOTE:</p>
+                            <p class="">- Staff data with green bar or green and red bar means the staff is on leave. Example:</p>
+                            <p><img src="../media/e1.png"></p>
+                            <p><img src="../media/e3.png"></p><br><br>
+
+                            <p class="">- Staff data with red bar only means the staff is not on leave. Example:</p>
+                            <p><img src="../media/e2.png"></p><br><br>
+
+                            <p class="">- To navigate directly/quickly to staff profile, enter staff PF number in the input box 
+                                and click on continue. Example:</p>
+                            <p><img src="../media/e4.png" ></p><br><br>
+
+                            <p class="">- You can either filter Staff Data in the table using PF number, unit or last name. Example:</p>
+                                <p><img src="../media/e5.png" ></p>
+                            </div>
+                    </div>
+                
+            </div>
+        </div>
+       
+
+    
+
+    
+    <%- include('bottom'); -%>
+
+</body>
+</html>

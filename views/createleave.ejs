@@ -1,0 +1,96 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../media/favicon.ico">
+    <title>CSTD DATA SYSTEM</title>
+    <link href="../css/bulma.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Rakkas">
+    <link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+    
+    <style>
+        .front {
+          
+          background-image: url("../media/cstd_tr.png");
+          
+        }
+      </style>
+</head>
+
+<body class="front">
+    <%- include('top'); -%>
+    <section>
+        <div class="container"><br><br>
+            <div class="columns is-centered">
+             
+                <div class="column is-6">
+                    <p class="subtitle"> <%= status %></p>
+                    <hr class="is-info">
+                    <div class="content">
+                            <form action="/api/new-staff-leave" method="POST" class="form">
+
+                              <div class="field">
+                                  <label class="label">Staff PF</label>
+                                  <div class="control">
+                                    <input class="input is-info is-rounded" type="text" name="pf" placeholder="Enter Staff PF" required>
+                                  </div>
+                                </div>
+
+                                <div class="field">
+                                    <label class="label">Select Leave Type</label>
+                                    <div class="control">
+                                      <div class="select is-info is-rounded is-hovered">
+                                        <select name="leave_type" required>
+                                            <option value="">Select Leave type</option>
+                                            <option value="casual">Casual</option>
+                                            <option value="annual">Annual</option>
+                                            <option value="sick">Sick</option>
+                                            <option value="maternal">Maternal</option>
+                                            <option value="study">Study</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="field">
+                                      <label class="label">Leave Start Date</label>
+                                      <div class="control">
+                                        <input required class="input is-info is-rounded" type="date" name="startdate" placeholder="Enter Leave Start date">
+                                      </div>
+                                    </div>
+
+                                    <div class="field">
+                                        <label class="label">Leave End Date</label>
+                                        <div class="control">
+                                          <input required class="input is-info is-rounded" type="date" name="enddate" placeholder="Enter Leave End date">
+                                        </div>
+                                      </div>
+
+                                      <div class="field is-grouped">
+                                          <div class="control">
+                                            <button type="submit" class="button is-link is-outlined">Save</button>
+                                          </div>
+                                          <div class="control">
+                                            <button type="reset" class="button is-link is-outlined">Cancel</button>
+                                          </div>
+                                        </div>
+
+                                
+                                
+                                </form>
+                    </div>
+                    <hr>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <%- include('bottom'); -%>
+</body>
+</html>

@@ -1,0 +1,115 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../media/favicon.ico">
+    <title>CSTD DATA SYSTEM</title>
+    <link href="../css/bulma.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Rakkas">
+    <link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+
+    <style>
+      .front {
+        background: blue;
+        color: red;
+      }
+    </style>
+</head>
+
+<body>
+    <%- include('top'); -%>
+    <section class="hero is-fullheight ">
+      <div class="hero-body">
+        <div class="container">
+            <div class="columns is-centered"
+                <div class="column is-6">
+                    
+                    
+                    <div class="content">
+                            <p class="subtitle"><%= status %></p><br>
+                            <form action="/api/edit-admin" method="POST">
+
+                              <div class="field">
+                                  <label class="label animated fadeInLeft">Admin PF</label>
+                                  <div class="control">
+                                  <input value="<%= adminData.PF %>" class="input is-info is-rounded" type="text" name="PF" placeholder="Enter PF number">
+                                </div>
+                              </div>
+
+                              <div class="field">
+                                    <label class="label animated fadeInLeft">Username</label>
+                                    <div class="control">
+                                    <input value="<%= adminData.username %>" class="input is-info is-rounded" type="text" name="username" placeholder="Enter username">
+                                  </div>
+                                </div>
+
+                                <div class="field">
+                                        <label class="label animated fadeInLeft">Password</label>
+                                        <div class="control">
+                                        <input class="input is-info is-rounded" type="password" name="password" placeholder="Enter Password">
+                                      </div>
+                                    </div>
+
+                                    <div class="field">
+                                            <label class="label animated fadeInLeft">Verify Password</label>
+                                            <div class="control">
+                                            <input class="input is-info is-rounded" type="vpassword" name="password" placeholder="Verify Password">
+                                          </div>
+                                        </div>
+
+                                   
+                                        <% if (adminData.role == '1') { %>
+                                             LS
+                                             <% }if (adminData.role == '2') {  %>
+                                                     SA
+                                                 <% } if(adminData.role == '3'){ %>
+                                                     <p >SUS</p>
+                                                     <% } if(adminData.role == '4'){ %>  
+                                                         SDA  
+                                                         <% } %>
+                                                        
+
+                                    <div class="field is-centered">
+                                            <label class="label">Select Admin Priviledge Level</label>
+                                            <div class="control">
+                                              <div class="select is-info is-rounded is-hovered">
+                                                <select name="role" required>
+                                                    <option value="1">Leave Admin (LS)</option>
+                                                    <option value="2">Staff Admin (SA)</option>
+                                                    <option value="3">Super Admin (SUS)</option>
+                                                    <option value="4">Super Directorate Admin (SDA)</option>
+                                                    <option value="5">System Adminstrator (SA)</option>
+                                                </select>
+                                              </div>
+                                            </div>
+                                          </div>
+
+                              <div class="field is-grouped animated fadeInLeft">
+                                  <div class="control">
+                                    <button type="submit" class="button is-link is-rounded">Continue</button>
+                                  </div>
+                                  <div class="control">
+                                    <button type="reset" class="button is-link is-rounded">Cancel</button>
+                                  </div>
+
+                                 
+                                </div>
+                              
+                                
+                              
+                                </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+      </div>
+    </section>
+    <%- include('bottom'); -%>
+</body>
+</html>

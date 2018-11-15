@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../media/favicon.ico">
+    <title>CSTD DATA SYSTEM</title>
+    <link href="../css/bulma.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Rakkas">
+    <link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+
+    <script src="../zingchart.min.js"></script>
+</head>
+
+<body>
+        <%- include('top'); -%>
+
+       
+    
+   <section>
+        <div class="container">
+            <div class="columns is-multiline">
+                <div class="column is-12">
+                  <div class="column">
+                    <div class="container">
+                      <p>Total Attendance between <%= moment(from).format('LL') %> to <%= moment(to).format('LL')%>: <%= count %>   </p>
+                     
+                    </div>
+                  </div>
+                </div>
+                    <div id="myChart2" class="column is-12"></div>
+                    <div id="all-early-late-in" class="column is-6"></div>
+                    <div id="all-early-late-out" class="column is-6"></div>
+                    
+                    
+                    
+            </div>
+        </div>
+   </section>
+
+    <script>
+           
+
+            zingchart.render({
+                id: 'myChart2',
+                data: {
+                    type: 'bar3d',
+                    title: {text: 'Attendance in this month'},
+                    plot: {'aspect': 'cylinder',
+                          "value-box": {"text": "%v"
+                                        },
+                            "animation": {
+                              "effect":"ANIMATION_FADE_IN",
+                              "speed":"2000",
+                                      "delay": "100",
+                                      "effect": "4",
+                                      "method": "5",
+                                      "sequence": "1"
+                                    }},
+                    legend: {
+                            "toggle-action": "hide",
+                            "header": {
+                              "text": "Legend Header"
+                            },
+                            "item": {
+                              "cursor": "pointer"
+                            },
+                            "draggable": true,
+                            "drag-handler": "icon"
+                          },
+                          
+                    "scale-x": {
+                         "values": [
+                              "total attendance",
+                              "Early (before 9:30am)",
+                              "Late (after 9:30am)",
+                              "Early Logout (before 4:45pm)",
+                              "Valid Logout (after 4:45pm)",
+                              
+                             ]},
+                    series: [
+                        {values: [<%= count %>, <%= ran_early_in %>, <%= ran_late_in %>, <%= ran_early_out %>, <%= ran_late_out %>],
+                          "text": "total attendance",
+                          "background-color":"blue, yellow",},
+                       
+                       
+                        
+                    ],
+                    
+                }
+            });
+
+          
+             zingchart.render({
+                id: 'all-early-late-in',
+                data: {
+                    title: {text: 'Attendance % from '},
+                    type: 'pie',
+                    "plot":{
+    "offset-r":"5%" //provide percentage value
+  },legend: {
+                            "toggle-action": "hide",
+                            "header": {
+                              "text": "Legend Header"
+                            },
+                            "item": {
+                              "cursor": "pointer"
+                            },
+                            "draggable": true,
+                            "drag-handler": "icon"
+                          },
+  
+                    series: [{
+                        values: [<%= ran_early_in %>],
+                        "text":"Early in",
+                        "background-color":"green"},
+                        {values: [<%= ran_late_in %>],
+                            "text":"late in",
+                            "background-color":"red"}
+                    ]
+                }
+            });
+
+             zingchart.render({
+                id: 'all-early-late-out',
+                data: {
+                    title: {text: 'Attendance % in Jan'},
+                    type: 'pie',
+                    "plot":{
+    "offset-r":"5%" //provide percentage value
+  },legend: {
+                            "toggle-action": "hide",
+                            "header": {
+                              "text": "Legend Header"
+                            },
+                            "item": {
+                              "cursor": "pointer"
+                            },
+                            "draggable": true,
+                            "drag-handler": "icon"
+                          },
+  
+                    series: [{
+                        values: [<%= ran_early_out %>],
+                        "text":"invalid logout",
+                        "background-color":"red"},
+                        {values: [<%= ran_late_out %>],
+                            "text":"valid logout",
+                            "background-color":"green"}
+                    ]
+                }
+            });
+
+            
+
+            
+        </script>
+
+    
+<%- include('bottom'); -%>
+    
+</body>
+</html>

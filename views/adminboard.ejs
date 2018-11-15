@@ -1,0 +1,261 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../media/favicon.ico">
+    <title>CSTD DATA SYSTEM</title>
+    <link href="../css/bulma.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Rakkas">
+    <link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+    <script src="../zingchart.min.js"></script>
+    <style>
+        .front {
+          
+          background-image: url("../media/cstd_tr.png");
+          
+        }
+      </style>
+</head>
+
+<body class="front">
+    <%- include('top'); -%>
+        
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-4">
+                    <h2 class="subtitle"> Create new Staff record</h2>
+                    <% if (admin.role == '2' || admin.role == '3' || admin.role == '5') { %>
+                      <p> <a class="button is-danger is-outlined" href="/api/new-staff" >ADD NEW STAFF</a></p>
+                    <% } %>
+                    <hr>
+                   
+                    <% if (admin.role == '2' || admin.role == '3' || admin.role == '5') { %>
+                      <p class="subtitle">Edit Staff record</p>
+                      <p class="help is-danger">Enter staff PF number to continue</p><br>
+                      <div class="content">
+                        <form action="/api/editstaffview" method="POST">
+                          <div class="field">
+                            <label class="label">Enter Staff PF</label>
+                            <div class="control">
+                              <input class="input is-info is-rounded" type="text" name="pf" placeholder="Enter staff PF">
+                            </div>
+                          </div>
+
+                          <button class="button is-danger is-outlined" type="submit">Continue</button><br><br>
+                          
+                        </form>
+                      </div>
+                    <% } %>
+                    <hr>
+
+                    <h2 class="subtitle"> Create new Leave Data</h2>
+
+                    <% if (admin.role == '1' || admin.role == '3' || admin.role == '5') { %>
+                   <p> <a class="button is-danger is-outlined" href="/api/new-staff-leave" >ADD LEAVE</a></p><br><br>
+                   <% } %>
+
+                   <hr>
+
+                   <div class="content is-medium">
+                      <p>Number of Staffs in Database: <%= number %></p>  
+                      <p>Number of active leaves: <%= active_leaves %></p>                  
+              </div> 
+                   
+             
+    
+                </div>
+                <div class="column is-4">
+                        
+                    <h2 class="subtitle"> Active Leave(s)</h2>
+                    <table class="table is-centered is-striped is-narrow is-hovered">
+                        <thead>
+                            <tr>
+                                <td>Staff PF</td>
+                                <td>Start Date</td>
+                                <td>End Date</td>
+                                <td>Type</td>
+
+                                <% if (admin.role == '1' || admin.role == '3' || admin.role == '5') { %>
+                                <td>Details</td>
+                                <% } %>
+                                
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(var i = 0; i < leaveData.length; i++) { %>
+                            <tr>
+                                <td><%= leaveData[i].PF %></td>
+                                <td><%= moment(leaveData[i].leave_start_date).format('LL') %></td>
+                                <td><%= moment(leaveData[i].leave_end_date).format('LL') %></td>
+                                <td><%= leaveData[i].leave_type %></td>
+                                <% if (admin.role == '1' || admin.role == '3' || admin.role == '4' || admin.role == '5') { %>
+                                <td><a class="is-danger is-outlined button" href="/api/leaveboard?ID=<%= leaveData[i]._id %>">Details</a></td>
+                                <% } %>
+                            </tr>   
+                            <% } %> 
+                        </tbody>
+                    </table>
+                   
+                  
+                     
+                </div>
+                <div class="column is-6">
+                        <% if (admin.role == '3' || admin.role == '4' || admin.role == '5') { %>
+                            <div class="container">
+                    <div class="column is-6">
+                        <p class="subtitle">Upload Attendance Data file</p>
+                        <form action="/api/parse-csv-file" method="POST" class="form is-centered" encType="multipart/form-data">
+                            
+
+                              <div class="field is-centered column is-6">
+                                    <p class="help is-danger">
+                                            Documents in CSV format (ex. letter.csv) is recommended
+                                       </p>
+                                    <div class="file is-link has-name is-boxed">
+                                      <label class="file-label">
+                                        <input class="file-input" type="file" name="csvfile" id="csvfile">
+                                        <span class="file-cta">
+                                          <span class="file-icon">
+                                            <i class="fas fa-cloud-upload-alt"></i>
+                                          </span>
+                                          <span class="file-label">
+                                            Choose CSV file
+                                          </span>
+                                        </span>
+                                        <span class="file-name" id="filename">
+                                          .........
+                                        </span>
+                                      </label>
+                                      
+                                    </div>
+                                  </div>
+
+                                  <div class="field is-grouped column is-6">
+                                        <div class="control is-centered has-text-centered">
+                                          <button type="submit" class="button is-danger is-outlined">Upload</button>
+                                        </div>
+                                        <div class="control is-centered has-text-centered">
+                                          <button type="reset" class="button is-danger is-outlined">Cancel</button>
+                                        </div>
+                                      </div>
+                                                          
+                            
+                            
+                            </form>
+                            </div>
+                </div>
+                <% } %>
+                <hr>
+                <div class="container">
+                    <div class="column is-6">
+                        <p class="subtitle"><%= status %></p>
+                            <form action="/api/upload-staff-file" method="POST" encType="multipart/form-data">
+                                                            
+
+                            <input value="<%= admin.PF %>" class="input is-info is-rounded is-4" type="hidden" name="adminpf" required>
+                            <div class="field column is-6">
+                                    <label class="label">Staff PF Number</label>
+                                    <div class="control ">
+                                      <input class="input is-info is-rounded" type="text" name="pf" placeholder="Enter Staff PF number">
+                                    </div>
+                            </div>
+
+                                <div class="field column is-6">
+                                        <label class="label">Document title</label>
+                                        <div class="control ">
+                                          <input class="input is-info is-rounded" type="text" name="title" placeholder="Enter document title">
+                                        </div>
+                                </div>
+
+                                <div class="field column is-6">
+                                        <label class="label">Short Note</label>
+                                        <div class="control">
+                                          <textarea name="note" class="textarea is-info is-rounded" placeholder="short note about this document"></textarea>
+                                        </div>
+                                </div>
+ 
+                                          
+                                          <div class="field column is-6">
+                                                <p class="help is-danger">
+                                                        Documents in PDF format (ex. letter.pdf) is recommended
+                                                   </p>
+                                                <div class="file is-link is-outlined has-name is-boxed">
+                                                  <label class="file-label">
+                                                    <input class="file-input" type="file" name="mediafile" id="mediafile">
+                                                    <span class="file-cta">
+                                                      <span class="file-icon">
+                                                        <i class="fas fa-cloud-upload-alt"></i>
+                                                      </span>
+                                                      <span class="file-label">
+                                                        Choose file
+                                                      </span>
+                                                    </span>
+                                                    <span class="file-name" id="filename2">
+                                                      .........
+                                                    </span>
+                                                  </label>
+                                                  
+                                                </div>
+                                              </div>
+
+                                   <% if (admin.role == '1' || admin.role == '3' || admin.role == '5') { %>             
+                                  <div class="field is-grouped column is-6">
+                                        <div class="control">
+                                          <button type="submit" class="button is-danger is-outlined">Upload</button>
+                                        </div>
+                                        <div class="control">
+                                          <button type="reset" class="button is-danger is-outlined">Cancel</button>
+                                        </div>
+                                      </div>
+                                      <% } %>
+                                                              
+                                
+                                
+                                </form>
+                    </div>
+                </div>
+                </div>
+                
+            </div>
+                               
+            
+        </div>
+    </section>
+
+    <script>
+            var file = document.getElementById("csvfile");
+            var file2 = document.getElementById("mediafile");
+
+                file.onchange = function(){
+                    if(file.files.length > 0)
+                    {
+    
+                    document.getElementById('filename').innerHTML = file.files[0].name;
+    
+                    }
+                };
+
+                 file2.onchange = function(){
+                if(file2.files.length > 0)
+                {
+
+                document.getElementById('filename2').innerHTML = file2.files[0].name;
+
+                }
+            };
+        </script>
+
+
+
+    <%- include('bottom'); -%>
+
+
+</body>
+</html>

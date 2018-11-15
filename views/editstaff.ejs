@@ -1,0 +1,104 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="media/images/favicon(2).ico">
+    <title>CSTD DATA SYSTEM</title>
+    <link href="../css/bulma.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Rakkas">
+    <link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+
+    <style>
+      .front {
+        background: blue;
+        color: red;
+      }
+    </style>
+</head>
+
+<body>
+    <%- include('top'); -%>
+        
+    <section>
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-6 is-centered"><br><br>
+                  <p class="subtitle"><%= status %></p>
+                  
+                    <div class="content">
+                            <form action="/api/editstaff" method="POST" encType="multipart/form-data">
+                              <input class="input" type="hidden" name="admPF" value="<%= admin.PF %>"><br><br>
+
+                              <div class="field">
+                                  <label class="label">Enter Staff unit</label>
+                                  <div class="control">
+                                    <input value="<%= staff.unit %>" class="input is-info is-rounded" type="text" name="unit" placeholder="Enter unit">
+                                  </div>
+                                </div>
+
+
+                                      <div class="field">
+                                          <label class="label">Enter Staff PF</label>
+                                        <div class="control">
+                                          <input disabled value="<%= staff.PF %>" class="input is-info is-rounded" type="text" name="pf" placeholder="Enter staff PF">
+                                        </div>
+                                      </div>
+ 
+                                          
+                                          <div class="field">
+                                              <p class="help is-danger">
+                                                  upload pic
+                                             </p>
+                                                <div class="file is-danger has-name is-boxed">
+                                                    
+                                                  <label class="file-label">
+                                                    <input class="file-input" type="file" name="mediafile" id="mediafile">
+                                                    <span class="file-cta">
+                                                      <span class="file-icon">
+                                                        <i class="fas fa-cloud-upload-alt"></i>
+                                                      </span>
+                                                      <span class="file-label">
+                                                        Choose file/Pic
+                                                      </span>
+                                                    </span>
+                                                    <span class="file-name" id="filename">
+                                                      ............
+                                                    </span>
+                                                  </label>
+                                                </div>
+                                              </div>
+                              
+                                
+                                
+                               
+                                                                                                                          
+                                <button class="button is-dark" type="submit">Save</button><br><br>
+                                
+                                </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        var file = document.getElementById("mediafile");
+            file.onchange = function(){
+                if(file.files.length > 0)
+                {
+
+                document.getElementById('filename').innerHTML = file.files[0].name;
+
+                }
+            };
+    </script>
+
+<%- include('bottom'); -%>
+</body>
+</html>

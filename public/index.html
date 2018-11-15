@@ -1,0 +1,174 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="media/favicon.ico">
+    <title>CSTD DATA SYSTEM</title>
+    <link href="css/bulma.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <!--<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Rakkas">-->
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <script src="../moment/min/moment.min.js"></script>
+   
+  
+    
+    <style>
+      .front {
+        background-color: black;
+        background-image: url("media/1cc.jpg");
+        color: red;
+      }
+    </style>
+</head>
+
+<body>
+<section class="hero is-fullheight front">
+
+  <div class="hero-head">
+    <nav class="navbar is-transparent">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item">
+           <img src="media/cstd.png" alt="Logo">
+            <h2 class="subtitle has-text-white">CSTD DATA SYSTEM</h2>
+          </a>
+          <span class="navbar-burger burger" data-target="navbarMenuHeroB">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+
+        <div id="navbarMenuHeroB" class="navbar-menu">
+          <div class="navbar-end">
+            
+            <a class="navbar-item has-text-white" href="#">
+            	Guide
+            </a>
+            <span class="navbar-item">
+              <a class="button is-info is-inverted is-outlined" href="#">
+                <span class="icon">
+                  <i class="fas fa-brain"></i>
+                </span>
+                <span>About</span>
+              </a>
+            </span>
+           
+          </div>
+
+            
+
+        </div>
+      </div>
+    </nav>
+  </div>
+        
+      
+
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <p class="title has-text-danger is-1 animated pulse">
+        CSTD DATA SYSTEM 
+      </p>
+     
+      <p id='show_time' class="subtitle is-1 has-text-success animated jello">
+      ##########
+      </p>
+
+      <p  class="is-1 has-text-success animated jello">
+          Number of Staffs in Database: <strong id='num' class="has-text-white">##########</strong>
+         
+          </p>
+
+          <p  class="is-1 has-text-success animated jello">
+              
+              Number of active leaves: <strong id='numl' class="has-text-white">##########</strong>
+              </p>
+    </div>
+  </div>
+
+  <div class="hero-foot">
+    <nav class="tabs is-boxed is-fullwidth">
+      <div class="container">
+        <ul>
+          <li class="animated fadeInLeft">
+            <a href="api/toprofile" class="has-text-white subtitle is-4 is-info is-outlined button ">Staff Profile</a>
+          </li>
+         <!-- <li class="animated bounceInRight">
+            <a href="api/data" class="subtitle is-5 button has-text-white is-danger is-outlined ">Attendance</a>
+          </li> -->
+          <li class="animated fadeInRightBig">
+            <a href="api/adminpin" class="has-text-white subtitle is-3 is-primary is-outlined button ">Admin</a>
+          </li>
+          
+          
+        </ul>
+      </div>
+    </nav>
+  </div>
+ 
+</section>
+
+
+
+
+<footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <strong>Developed</strong> by <a href="https://icreate.steinacoz.com">Steinacoz Platform (08139059856)</a>. Copyright © 2018
+      </p>
+    </div>
+  </footer>
+
+  <script>
+
+       
+
+   
+    alert ("Google Chrome and Firefox are the recommended browsers!!!");
+
+    setInterval(() => {
+      
+
+      var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200){
+        document.getElementById('num').innerHTML = xhttp.responseText;
+      }
+    }
+
+    xhttp.open("GET", "http://localhost:3000/api/front", true);
+    xhttp.send();
+
+    var xhttpl = new XMLHttpRequest();
+    xhttpl.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200){
+        document.getElementById('numl').innerHTML = xhttpl.responseText;
+      }
+    }
+
+    xhttpl.open("GET", "http://localhost:3000/api/frontl", true);
+    xhttpl.send();
+
+
+    }, 85000)
+  
+
+    setInterval(() => {
+      var times = moment().format('dddd, MMMM Do YYYY, h:mm:ss a');
+      document.getElementById('show_time').innerHTML = times;
+
+    }, 1000)
+    
+
+          
+  </script>
+
+
+</body>
+</html>

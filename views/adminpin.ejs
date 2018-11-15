@@ -1,0 +1,66 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../media/favicon.ico">
+    <title>CSTD DATA SYSTEM</title>
+    <link href="../css/bulma.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Rakkas">
+    <link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+
+    <style>
+      .front {
+        background: blue;
+        color: red;
+      }
+    </style>
+</head>
+
+<body>
+    <%- include('top'); -%>
+    <section class="hero is-fullheight ">
+      <div class="hero-body">
+        <div class="container">
+            <div class="columns is-centered"
+                <div class="column is-6">
+                    <div class="content">
+                            <form action="/api/adminboard" method="POST">
+
+                              <div class="field">
+                                  <label class="label animated fadeInLeft">Enter Password to continue</label>
+                                  <div class="control">
+                                  <input class="input is-info is-rounded" type="password" name="password" placeholder="Enter Password">
+                                </div>
+                              </div>
+
+                              <div class="field is-grouped animated fadeInLeft">
+                                  <div class="control">
+                                    <button type="submit" class="button is-link is-rounded">Continue</button>
+                                  </div>
+                                  <div class="control">
+                                    <button type="reset" class="button is-link is-rounded">Cancel</button>
+                                  </div>
+
+                                  <div class="control">
+                                      <a href="/api/check-admin" class="button is-link is-rounded">Create New Admin</a>
+                                    </div>
+                                </div>
+                              
+                                
+                              
+                                </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+      </div>
+    </section>
+    <%- include('bottom'); -%>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<nav class="navbar is-link"  role="navigation" aria-label="main navigation">
+        <div class="container">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                    <img src="../media/cstd.png" alt="Logo">
+                    <h3 class="subtitle has-text-white">CSTD DATA SYSTEM</h3>
+            </a>
+            <span class="navbar-burger burger" data-target="navbarMenuHeroB">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </div>
+          <div id="navbarMenuHeroB" class="navbar-menu">
+            <div class="navbar-end">
+                <a class="navbar-item" href="/api/toprofile">
+                    Staff Profile
+                  </a>
+
+                  <a class="navbar-item" href="/api/adminpin">
+                    Admin
+                  </a>
+
+              <a class="navbar-item">
+                Guide
+              </a>
+              <span class="navbar-item">
+                <a class="button is-info is-inverted">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>About</span>
+                </a>
+              </span>
+              <a class="navbar-item">
+                
+                <% if(admin){ %>
+              <%= admin.username  %> 
+              <% } %>
+            </a>
+
+              <a class="navbar-item" href="/api/adminpin">
+                  <% if(!admin){ %>
+                    login
+                  <% } %>
+                  
+              </a>              
+              
+              <a class="navbar-item">
+                    <% if(admin){ %>
+               <% if (admin.role == '1') { %>
+                    <p>LS</p>
+                    <% }if (admin.role == '2') {  %>
+                            <p>SA</p>
+                        <% } if(admin.role == '3'){ %>
+                            <p ></p>SUS</p>
+                            <% } if(admin.role == '4'){ %>  
+                                <p>SDA</p>  
+                                <% } %>
+                                <% } %>
+                            </a>
+
+                            <a href="/api/logout" class="navbar-item">
+                    
+                                    <% if(admin != null){ %>
+                                        logout
+                                  <% } %>
+                                </a>
+
+            </div>
+          </div>
+        </div>
+      </nav>

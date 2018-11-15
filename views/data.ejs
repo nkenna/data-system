@@ -1,0 +1,82 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="media/images/favicon(2).ico">
+    <title>CSTD DATA SYSTEM</title>
+    <link href="../css/bulma.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Rakkas">
+    <link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+    <script src="../zingchart.min.js"></script>
+    <style>
+      .front {
+        background: blue;
+        color: red;
+      }
+    </style>
+</head>
+
+<body>
+    <%- include('top'); -%>
+        
+    <section class="section">
+        <div class="container">
+            
+            <div class="columns is-multiline">
+                   
+                    <div id="myChart3" class="column"></div>
+                        <div id="myChart2" class="column"></div>
+        </div>                     
+            
+        </div>
+    </section>
+
+    <script>
+           
+
+            zingchart.render({
+                id: 'myChart2',
+                data: {
+                    type: 'bar3d',
+                    title: {text: 'Attendance in the last 3 months'},
+                    plot: {'aspect': 'cylinder',},
+                    "scale-x": {
+                         "values": [
+                               "July",
+                               "August",
+                                "September"
+                             ]},
+                    series: [
+                        {values: [111, 46, 83]}
+                        
+                    ],
+                    
+                }
+            });
+
+            zingchart.render({
+                id: 'myChart3',
+                data: {
+                    title: {text: 'Attendance in the last 30 days'},
+                    type: 'pie3d',
+                    "plot":{
+    "offset-r":"25%" //provide percentage value
+  },
+                    series: [{
+                        values: [55],
+                        "text":"early"},
+                        {values: [45],
+                            "text":"late"}
+                    ]
+                }
+            });
+        </script>
+
+<%- include('bottom'); -%>
+</body>
+</html>

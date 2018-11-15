@@ -1,0 +1,156 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../media/favicon.ico">
+    <title>CSTD DATA SYSTEM</title>
+    <link href="../css/bulma.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Rakkas">
+    <link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+
+    <style>
+        .front {
+          
+          background-image: url("../media/cstd_tr.png");
+          
+        }
+      </style>
+</head>
+
+<body class="front">
+    <%- include('top'); -%>
+    <section>
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-6 is-centered"><br><br>
+                  <p class="subtitle"><%= status %></p>
+                  
+                    <div class="content">
+                            <form action="/api/new-staff" method="POST" encType="multipart/form-data">
+                              <input class="input" type="hidden" name="admPF" value="<%= admin.PF %>"><br><br>
+
+                              <div class="field">
+                                  <label class="label">First Name</label>
+                                  <div class="control">
+                                    <input class="input is-info is-rounded" type="text" name="firstname" placeholder="Enter staff first name">
+                                  </div>
+                          </div>
+
+                          
+                          <div class="field">
+                              <label class="label">Middle Name</label>
+                              <div class="control">
+                                <input class="input is-info is-rounded" type="text" name="middlename" placeholder="Enter staff middle name">
+                              </div>
+                      </div>
+
+                      <div class="field">
+                          <label class="label">Last Name</label>
+                          <div class="control">
+                            <input class="input is-info is-rounded" type="text" name="lastname" placeholder="Enter staff last name">
+                          </div>
+                  </div>
+
+                  <div class="field">
+                      <label class="label">Select Staff Unit</label>
+                      <div class="control">
+                        <div class="select is-info is-rounded is-hovered">
+                          <select name="unit" required">
+                              <option value="">Select Staff Unit</option>
+                              <option value="Payload">Payload</option>
+                              <option value="RD">Research and Development</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Staff PF Number</label>
+                        <div class="control">
+                          <input class="input is-info is-rounded" type="text" name="pf" placeholder="Enter staff PF number">
+                        </div>
+                </div>
+                                
+                 
+                <div class="field">
+                    <label class="label">Select Staff Gender</label>
+                    <div class="control">
+                      <div class="select is-info is-rounded is-hovered">
+                        <select name="sex" required">
+                            <option value="">Select Staff Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                               
+                                
+                  <div class="field">
+                      <p class="help is-danger">
+                              profile pics/passport must be less than 500kb
+                         </p>
+                      <div class="file is-link has-name is-boxed">
+                        <label class="file-label">
+                          <input class="file-input" type="file" name="mediafile" id="mediafile">
+                          <span class="file-cta">
+                            <span class="file-icon">
+                              <i class="fas fa-cloud-upload-alt"></i>
+                            </span>
+                            <span class="file-label">
+                              Choose file
+                            </span>
+                          </span>
+                          <span class="file-name" id="filename">
+                            .........
+                          </span>
+                        </label>
+                        
+                      </div>
+                    </div>            
+                               
+                    <div class="field is-grouped">
+                        <div class="control">
+                          <button type="submit" class="button is-danger is-outlined">Save</button>
+                        </div>
+                        <div class="control">
+                          <button type="reset" class="button is-danger is-outlined">Cancel</button>
+                        </div>
+                      </div>          
+                                                                                                                          
+                                
+                                
+                                </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        
+        var file = document.getElementById("mediafile");
+
+            file.onchange = function(){
+                if(file.files.length > 0)
+                {
+
+                document.getElementById('filename').innerHTML = file.files[0].name;
+
+                }
+            };
+
+          
+    </script>
+
+
+
+<%- include('bottom'); -%>
+</body>
+</html>

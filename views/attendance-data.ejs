@@ -1,0 +1,48 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../media/favicon.ico">
+    <title>CSTD DATA SYSTEM</title>
+    <link href="../css/bulma.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Rakkas">
+    <link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+
+    <style>
+      .front {
+        background: blue;
+        color: red;
+      }
+    </style>
+</head>
+
+<body>
+        <%- include('top'); -%>
+    
+    </section>
+
+    <section class="section">
+            
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-12">
+                      
+                            <div class="notification is-danger">
+                                    <button class="delete"></button>
+                                    <p>Number of data in the file: <%= uploadData.data_len %></p>
+                                    <p>Number of saved data in the file: <%= uploadData.saved_len %></p>
+                                    <p>Number of duplicated data (not saved) in the file: <%= uploadData.duplicate_len %></p>
+                                    <p>Number of error(s) in the file: <%= uploadData.error_len %></p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <%- include('bottom'); -%>
+</body>
+</html>

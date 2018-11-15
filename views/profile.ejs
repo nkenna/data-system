@@ -1,0 +1,302 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../media/favicon.ico">
+    <title>CSTD DATA SYSTEM</title>
+    <link href="../css/bulma.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Rakkas">
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+    <style>
+        .front {
+          
+          background-image: url("../media/cstd_tr.png");
+          
+        }
+      </style>
+</head>
+
+<body class="front">
+    <%- include('top'); -%>
+
+    <section class="section">
+        <div class="container">
+      <div class="columns ">
+        <div class="column is-3">
+          
+              <div class="card">
+                  <header class="card-header">
+                    <p class="card-header-title">
+                      <%= staff.firstname %> <%= staff.middlename %> <%= staff.lastname %>
+                    </p>
+                    <a href="#" class="card-header-icon" aria-label="more options">
+                      <span class="icon">
+                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                  </header>
+                  <div class="card-image">
+                      <figure class=" is-rounded image">
+                        <img src="<%= staff.mediafile %>" alt="Placeholder image" width="200" height="200">
+                      </figure>
+                    </div>
+                  <div class="card-content">
+                  <!--  <div class="content">
+                      Just a test writeup, profile note will occur here
+                      
+                      <br>
+                      
+                    </div>-->
+                  </div>
+                  <footer class="card-footer">
+                    <a href="" class="card-footer-item">PF Number: <%= staff.PF %></a>
+                    <a href="" class="card-footer-item">Unit: <%= staff.unit %></a>
+                    
+                  </footer>
+                </div>
+          </div>
+       
+
+        <div class="column is-3 is-full-mobile is-full-tablet">
+       
+              <h3>Range Data Report</h3>  
+                <hr>                       
+                          
+              
+                <form  class="form" method="POST" action="/api/staff-att-ran">
+                  
+
+                  <div class="field column is-12">
+                      <label class="label">From</label>
+                      <div class="control">
+                        <input required class="input is-info is-rounded" type="date" name="from">
+                      </div>
+                    </div>
+
+                    <div class="field column is-12">
+                        <label class="label">To</label>
+                        <div class="control">
+                          <input required class="input is-info is-rounded" type="date" name="to">
+                        </div>
+                      </div>
+
+                  <!--<input type="text" value="<%= staff.PF %>" name="staffPF"  hidden=true>-->
+                 
+                    <button class="button is-danger is-rounded is-outlined" type="submit">Range Data report</button>
+                    <div class="field column ">
+                        <div class="control">
+                        <input class="input is-info is-rounded" type="hidden" name="staffPF" value="<%= staff.PF %>">
+                      </div>
+                    </div>
+                  </form>
+                  
+          </div>
+        
+
+        <div class="column is-3 is-full-mobile is-full-tablet">
+        
+              <h3>Annual Data Report</h3>
+              <hr> 
+            <div class="content is-centered">
+              <div class="container">
+              <form  class="form is-centered" method="GET" action="/api/staff-att">
+                <div class="field">
+                    <div class="control">
+                    <input class="input is-info is-rounded is-outlined" type="hidden" name="staffPF" value="<%= staff.PF %>">
+                  </div>
+                </div>
+
+                <!--<input type="text" value="<%= staff.PF %>" name="staffPF"  hidden=true>-->
+                <div class="field is-centered">
+                    <label class="label">Select Year</label>
+                    <div class="control">
+                      <div class="select is-info is-rounded is-hovered">
+                        <select name="year" required>
+                            <option value="2019">2023</option>
+                            <option value="2019">2022</option>
+                            <option value="2019">2021</option>
+                            <option value="2019">2020</option>
+                            <option value="2019">2019</option>
+                            <option value="2018">2018</option>
+                            <option value="2017">2017</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>                              
+
+                
+                  <button class="button is-danger is-rounded is-outlined" type="submit">Yearly Data report</button><br><br>
+                </form>
+                </div>
+                </div>
+         
+        </div>
+
+        <div class="column is-3 is-full-mobile is-full-tablet">
+       
+            <h3>Monthly Data Report</h3> 
+            <hr> 
+          <div class="content">
+            <form  class="form" method="POST" action="/api/staff-att-mon">
+              <div class="field">
+                  <div class="control">
+                  <input class="input is-info is-rounded is-outlined" type="hidden" name="staffPF" value="<%= staff.PF %>">
+                </div>
+              </div>
+
+              <!--<input type="text" value="<%= staff.PF %>" name="staffPF"  hidden=true>-->
+              <div class="field">
+                  <label class="label">Select Month</label>
+                  <div class="control">
+                    <div class="select is-info is-rounded is-hovered">
+                      <select name="month" required>
+                          <option value="">Select Month</option>
+                          <option value="0">January</option>
+                          <option value="1">Febuary</option>
+                          <option value="2">March</option>
+                          <option value="3">April</option>
+                          <option value="4">May</option>
+                          <option value="5">June</option>
+                          <option value="6">July</option>
+                          <option value="7">August</option>
+                          <option value="8">September</option>
+                          <option value="9">October</option>
+                          <option value="10">November</option>
+                          <option value="11">December</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+              <div class="field">
+                  <label class="label">Select Year</label>
+                  <div class="control">
+                    <div class="select is-info is-rounded is-hovered">
+                      <select name="year" required>
+                          <option value="">Select Year</option>
+                          <option value="2019">2023</option>
+                          <option value="2019">2022</option>
+                          <option value="2019">2021</option>
+                          <option value="2019">2020</option>
+                          <option value="2019">2019</option>
+                          <option value="2018">2018</option>
+                          <option value="2017">2017</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>                              
+
+              
+                <button class="button is-danger is-rounded is-outlined" type="submit">Monthly Data report</button><br><br>
+              </form>
+              </div>
+       
+        </div>
+      </div>
+      </div>
+    </section>
+    <hr>
+
+    <section class="section">
+      <div class="columns">
+        <div class="column is-6">
+         
+            <div class="content">
+              <table class="table is-striped is-narrow is-responsive">
+                      <thead>
+                          <tr>
+                              <td>Start Date</td>
+                              <td>End Date</td>
+                              <td>Starts in</td>
+                              <td>Ends in</td>
+                              <td>Leave Period</td>
+                              <td>Type</td>
+                              
+                          </tr>
+                      </thead>
+                      <tbody>
+                              <% for(var i = 0; i < leaves.length; i++){ %>
+                          <tr>
+                              
+                              <td><%= moment(leaves[i].leave_start_date).format('LL') %></td>
+                              <td><%= moment(leaves[i].leave_end_date).format('LL') %></td>
+                              
+                              <% if(moment(leaves[i].leave_start_date).diff(moment(), 'days') == 0) {%>
+                                <td>started</td>
+                                <% } else if(moment(leaves[i].leave_start_date).diff(moment(), 'days') < 0) {%>
+                                  <td>started</td>
+                                <% }else{ %>
+                                  <td><%= moment(leaves[i].leave_start_date).diff(moment(), 'days') %>days</td>
+                                  <% } %>
+
+                                  <% if(moment(leaves[i].leave_end_date).diff(moment(), 'days') == 0 ) {%>
+                                    <td>over</td>
+                                  <% } else if(moment(leaves[i].leave_end_date).diff(moment(), 'days') < 0) {%>  
+                                    <td>over</td>
+                                    <% }else{ %>
+                                      <td><%= moment(leaves[i].leave_end_date).diff(moment(), 'days') %>days</td>
+                                      <% } %>
+                                     
+                              <% if(moment(leaves[i].leave_end_date).diff(moment(leaves[i].leave_start_date), 'days') == 0) {%>
+                                <td>over</td>
+                                <% }else{ %>
+                                  <td><%= moment(leaves[i].leave_end_date).diff(moment(leaves[i].leave_start_date), 'days') %>days</td>
+                                  <% } %>
+                              
+                              <td><%= leaves[i].leave_type %> leave %></td>
+                              <% if (admin.role == '1' || admin.role == '3' || admin.role == '4' || admin.role == '5') { %>
+                              <td><a class="button is-danger is-rounded is-outlined" href="/api/leaveboard?ID=<%= leaves[i]._id%>">Details</a></td>
+                              <% } %>
+                              
+                          </tr>   
+                          <% } %> 
+                      </tbody>
+                  </table>
+                  
+          </div>
+        </div>
+
+        <div class="column is-6">
+          
+              <div class="content">
+                  <p class="subtitle"><%= staff.firstname %> <%= staff.lastname%>'s Documents</p>
+                     
+    
+                      <table class="table is-centered is-striped is-narrow">
+                              <thead>
+                                  <tr>
+                                      <td>Title</td>
+                                      <td>Uploaded</td>                                                                                     
+                                      
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <% for(var i = 0; i < docs.length; i++) { %>
+                                  <tr>
+                                      <td><%= docs[i].title %></td>
+                                      <td><%= moment(docs[i].created_date).format('LL') %></td>
+    
+                                      
+                                        <td><a class="is-danger is-rounded button is-outlined" href="<%= docs[i].link %>">Details</a></td>
+                                      
+                                      
+                                  </tr>   
+                                  <% } %> 
+                              </tbody>
+                          </table>
+              </div>
+        </div>
+        </div>
+   
+    </section>
+
+    <%- include('bottom'); -%>
+
+</body>
+</html>

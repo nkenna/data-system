@@ -1,0 +1,398 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Ugwumsinachi Nnadi">
+    <link rel="icon" href="../media/favicon.ico">
+    <title>CSTD DATA SYSTEM</title>
+    <link href="../css/bulma.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Rakkas">
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+    <script src="../zingchart.min.js"></script>
+    <style>
+            .front {
+              
+              background-image: url("../media/cstd_tr.png");
+              
+            }
+          </style>
+</head>
+
+<body class="front">
+        <%- include('top'); -%>       
+    
+   <section>
+        <div class="container">
+            <div class="columns is-multiline is-desktop">
+                <div class="column is-12">
+                  <div class="column">
+                    <div class="container">
+                      <table class="table">
+                        <tr>
+                            <td>Staff Name: </td> <td><%= staff.firstname %> <%= staff.middlename %> <%= staff.lastname %> </td>
+                        </tr>
+                        <tr>
+                            <td>Unit: </td> <td><%= staff.unit %></td>
+                        </tr>
+                      </table>
+                      
+                    </div><br>
+                    <div class="container">
+                        <p class="has-text-danger"><strong>NOTE:</strong> </p><hr>
+                        <ul>
+                            <li>Attendance is taken from 20 working days in a month i.e. 5 working days in a week</li>
+                            <li>Early Attendance: before 9:30am</li>
+                            <li>Late Attendance: after 9:30am</li>
+                            <li>Invalid Logout: before 4:45pm</li>
+                            <li>Valid Login: after 4:45pm</li>
+                        </ul>
+                    </div>
+                  </div>
+                </div>
+                    <div id="myChart2" class="column is-12"></div>
+                 
+            </div>
+
+            <div class="columns">
+                    <div id="jan" class="column is-3"></div>
+                    <div id="feb" class="column is-3"></div>
+                    <div id="mar" class="column is-3"></div>
+                    <div id="apr" class="column is-3"></div>
+            </div>
+
+            <div class="columns">
+                    <div id="may" class="column is-3"></div>
+                    <div id="jun" class="column is-3"></div>
+                    <div id="jul" class="column is-3"></div>
+                    <div id="aug" class="column is-3"></div>
+            </div>
+
+            <div class="columns">
+                    <div id="sep" class="column is-3"></div>
+                    <div id="oct" class="column is-3"></div>
+                    <div id="nov" class="column is-3"></div>
+                    <div id="dec" class="column is-3"></div>
+            </div>
+        </div>
+   </section>
+
+    <script>
+           
+
+            zingchart.render({
+                id: 'myChart2',
+                data: {
+                    type: 'bar3d',
+                    title: {text: 'Attendance for <%= year %>'},
+                    plot: {'aspect': 'cylinder',
+                          "value-box": {"text": "%v"
+                                        },
+                            "animation": {
+                              "effect":"ANIMATION_FADE_IN",
+                              "speed":"2000",
+                                      "delay": "100",
+                                      "effect": "4",
+                                      "method": "5",
+                                      "sequence": "1"
+                                    }},
+                    legend: {
+                            "toggle-action": "hide",
+                            "header": {
+                              "text": "Legend Header"
+                            },
+                            "item": {
+                              "cursor": "pointer"
+                            },
+                            "draggable": true,
+                            "drag-handler": "icon"
+                          },
+                          "scale-y": {
+                                  "markers": [
+                                    {
+                                      "type": "line",
+                                      "range": [12],
+                                      "line-width": 3,
+                                      "line-color": "green",
+                                      "text": "attendance pass",
+                                      "placement": "bottom",
+                                      "label-placement": "normal",
+                                      "label-alignment": "normal"
+                                    }
+                                  ]
+                                },
+                    "scale-x": {
+                         "values": [
+                              "Jan",
+                              "Feb",
+                              "Mar",
+                              "Apr",
+                              "May",
+                              "June",
+                               "July",
+                               "Aug",
+                                "Sept",
+                                "Oct",
+                                "Nov",
+                                "Dec"
+                             ]},
+                    series: [
+                        {values: [<%= jan_record %>, <%= fe_record %>, <%= ma_record %>, <%= apr_record %>, <%= may_record %>, <%= jun_record %>, <%= jul_record %>, <%= aug_record %>, <%= sep_record %>, <%= oct_record %>, <%= nov_record %>, <%= dec_record %>],
+                          "text": "total attendance",
+                          "background-color":"blue",},
+                        {values: [<%= jan_early_login %>, <%= fe_early_login %>, <%= ma_early_login %>, <%= apr_early_login %>, <%= may_early_login %>, <%= jun_early_login %>, <%= jul_early_login %>, <%= aug_early_login %>, <%= sep_early_login %>, <%= oct_early_login %>, <%= nov_early_login %>, <%= dec_early_login %>],
+                          "text": "early attendance",
+                          "background-color":"green",},
+                        {values: [<%= jan_late_login %>, <%= fe_late_login %>, <%= ma_late_login %>, <%= apr_late_login %>, <%= may_late_login %>, <%= jun_late_login %>, <%= jul_late_login %>, <%= aug_late_login %>, <%= sep_late_login %>, <%= oct_late_login %>, <%= nov_late_login %>, <%= dec_late_login %>],
+                          "text": "late attendance",
+                          "background-color":"red",},
+                        {values: [<%= jan_early_logout %>, <%= fe_early_logout %>, <%= ma_early_logout %>, <%= apr_early_logout %>, <%= may_early_logout %>, <%= jun_early_logout %>, <%= jul_early_logout %>, <%= sep_early_logout %>, <%= sep_record %>, <%= oct_early_logout %>, <%= nov_early_logout %>, <%= dec_early_logout %>],
+                          "text": "invalid logout",
+                          "background-color":"cyan #FF0066",},
+                        {values: [<%= jan_late_logout %>, <%= fe_late_logout %>, <%= ma_late_logout %>, <%= apr_late_logout %>, <%= may_late_logout %>, <%= jun_late_logout %>, <%= jul_late_logout %>, <%= aug_late_logout %>, <%= sep_late_logout %>, <%= oct_late_logout %>, <%= nov_late_logout %>, <%= dec_late_logout %>],
+                          "text": "valid logout",
+                          "background-color":"green #FF0066",}
+                        
+                    ],
+                    
+                }
+            });
+
+            zingchart.render({
+                id: 'jan',
+                data: {
+                    title: {text: 'Attendance % in Jan'},
+                    type: 'pie',
+                    "plot":{
+    "offset-r":"5%" //provide percentage value
+  },
+                    series: [{
+                        values: [<%= jan_record %>],
+                        "text":"Present",
+                        "background-color":"green"},
+                        {values: [20 - <%= jan_record %>],
+                            "text":"Absent",
+                            "background-color":"red"}
+                    ]
+                }
+            });
+
+             zingchart.render({
+                id: 'feb',
+                data: {
+                    title: {text: 'Attendance % in Feb'},
+                    type: 'pie',
+                    "plot":{
+    "offset-r":"5%" //provide percentage value
+  },
+                    series: [{
+                        values: [<%= fe_record %>],
+                        "text":"Present",
+                        "background-color":"green"},
+                        {values: [20 - <%= fe_record %>],
+                            "text":"Absent",
+                            "background-color":"red"}
+                    ]
+                }
+            });
+
+             zingchart.render({
+                id: 'mar',
+                data: {
+                    title: {text: 'Attendance % in Mar'},
+                    type: 'pie',
+                    "plot":{
+    "offset-r":"5%" //provide percentage value
+  },
+                    series: [{
+                        values: [<%= ma_record %>],
+                        "text":"Present",
+                        "background-color":"green"},
+                        {values: [20 - <%= ma_record %>],
+                            "text":"Absent",
+                            "background-color":"red"}
+                    ]
+                }
+            });
+
+            zingchart.render({
+                id: 'apr',
+                data: {
+                    title: {text: 'Attendance % in April'},
+                    type: 'pie',
+                    "plot":{
+    "offset-r":"5%" //provide percentage value
+  },
+                    series: [{
+                        values: [<%= apr_record %>],
+                        "text":"Present",
+                        "background-color":"green"},
+                        {values: [20 - <%= apr_record %>],
+                            "text":"Absent",
+                            "background-color":"red"}
+                    ]
+                }
+            });
+
+            zingchart.render({
+                id: 'may',
+                data: {
+                    title: {text: 'Attendance % in May'},
+                    type: 'pie',
+                    "plot":{
+    "offset-r":"5%" //provide percentage value
+  },
+                    series: [{
+                        values: [<%= may_record %>],
+                        "text":"Present",
+                        "background-color":"green"},
+                        {values: [20 - <%= may_record %>],
+                            "text":"Absent",
+                            "background-color":"red"}
+                    ]
+                }
+            });
+
+            zingchart.render({
+                id: 'jun',
+                data: {
+                    title: {text: 'Attendance % in June'},
+                    type: 'pie',
+                    "plot":{
+    "offset-r":"5%" //provide percentage value
+  },
+                    series: [{
+                        values: [<%= jun_record %>],
+                        "text":"Present",
+                        "background-color":"green"},
+                        {values: [20 - <%= jun_record %>],
+                            "text":"Absent",
+                            "background-color":"red"}
+                    ]
+                }
+            });
+
+            zingchart.render({
+                id: 'jul',
+                data: {
+                    title: {text: 'Attendance % in July'},
+                    type: 'pie',
+                    "plot":{
+    "offset-r":"5%" //provide percentage value
+  },
+                    series: [{
+                        values: [<%= jul_record %>],
+                        "text":"Present",
+                        "background-color":"green"},
+                        {values: [20 - <%= jul_record %>],
+                            "text":"Absent",
+                            "background-color":"red"}
+                    ]
+                }
+            });
+
+            zingchart.render({
+                id: 'aug',
+                data: {
+                    title: {text: 'Attendance % in Aug'},
+                    type: 'pie',
+                    "plot":{
+    "offset-r":"5%" //provide percentage value
+  },
+                    series: [{
+                        values: [<%= aug_record %>],
+                        "text":"Present",
+                        "background-color":"green"},
+                        {values: [20 - <%= aug_record %>],
+                            "text":"Absent",
+                            "background-color":"red"}
+                    ]
+                }
+            });
+
+            zingchart.render({
+                id: 'sep',
+                data: {
+                    title: {text: 'Attendance % in Sept'},
+                    type: 'pie',
+                    "plot":{
+    "offset-r":"5%" //provide percentage value
+  },
+                    series: [{
+                        values: [<%= sep_record %>],
+                        "text":"Present",
+                        "background-color":"green"},
+                        {values: [20 - <%= sep_record %>],
+                            "text":"Absent",
+                            "background-color":"red"}
+                    ]
+                }
+            });
+
+            zingchart.render({
+                id: 'oct',
+                data: {
+                    title: {text: 'Attendance % in Oct'},
+                    type: 'pie',
+                    "plot":{
+    "offset-r":"5%" //provide percentage value
+  },
+                    series: [{
+                        values: [<%= oct_record %>],
+                        "text":"Present",
+                        "background-color":"green"},
+                        {values: [20 - <%= oct_record %>],
+                            "text":"Absent",
+                            "background-color":"red"}
+                    ]
+                }
+            });
+
+            zingchart.render({
+                id: 'nov',
+                data: {
+                    title: {text: 'Attendance % in Nov'},
+                    type: 'pie',
+                    "plot":{
+    "offset-r":"5%" //provide percentage value
+  },
+                    series: [{
+                        values: [<%= nov_record %>],
+                        "text":"Present",
+                        "background-color":"green"},
+                        {values: [20 - <%= nov_record %>],
+                            "text":"Absent",
+                            "background-color":"red"}
+                    ]
+                }
+            });
+
+            zingchart.render({
+                id: 'dec',
+                data: {
+                    title: {text: 'Attendance % in Dec'},
+                    type: 'pie',
+                    "plot":{
+    "offset-r":"5%" //provide percentage value
+  },
+                    series: [{
+                        values: [<%= dec_record %>],
+                        "text":"Present",
+                        "background-color":"green"},
+                        {values: [20 - <%= dec_record %>],
+                            "text":"Absent",
+                            "background-color":"red"}
+                    ]
+                }
+            });
+        </script>
+
+<%- include('bottom'); -%>
+
+    
+</body>
+</html>
