@@ -14,17 +14,18 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/cstdapi_db', { useNewUrlParser: true })
+mongoose.connect('mongodb://cstd:nkenna007@ds045147.mlab.com:45147/heroku_p1wdhspx', { useNewUrlParser: true })
 .then(() =>  console.log('connection succesful'))
 .catch((err) => console.error(err));
 
-//mongoose.connect('mongodb://nkenna:nkenna007@ds125673.mlab.com:25673/heroku_j02lqbhk');
+//mongoose.connect('mongodb://cstd:nkenna007@ds045147.mlab.com:45147/heroku_p1wdhspx');
+
 
 var numExpectedSources = 2;
 var store = new MongoDBStore(
   {
-    uri: 'mongodb://localhost:27017/connect_mongodb_session',
-    databaseName: 'connect_mongodb_session',
+    uri: 'mongodb://cstd:nkenna007@ds045147.mlab.com:45147/heroku_p1wdhspx',  //connect_mongodb_session
+    databaseName: 'cstdapi_db',
     collection: 'mySessions'
   },
   function(error) {
