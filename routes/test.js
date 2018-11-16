@@ -110,6 +110,33 @@
                         </tbody>
                       </table>
 
+mongoose.connect('mongodb://localhost:27017/cstdapi_db', { useNewUrlParser: true })
+.then(() =>  console.log('connection succesful'))
+.catch((err) => console.error(err));
+
+
+
+//mongoose.connect('mongodb://cstd:nkenna007@ds045147.mlab.com:45147/heroku_p1wdhspx');
+
+
+var numExpectedSources = 2;
+var store = new MongoDBStore(
+  {
+    uri: 'mongodb://localhost:27017/cstdapi_db',  //connect_mongodb_session
+    databaseName: 'cstdapi_db',
+    collection: 'mySessions'
+  },
+  function(error) {
+    // Should have gotten an error
+    if(error){
+    console.log(error)
+    }
+  });
+
+
+
+  
+
 
 
 
