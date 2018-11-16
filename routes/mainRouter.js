@@ -49,15 +49,6 @@ mainRouter.use((req, res, next) => {
 });
 
 
-var sessionChecker = (req, res, next) => {
-  if (req.session.user && req.cookies.admin) {
-      res.redirect('index');
-  } else {
-      next();
-  }    
-};
-
-
 
 
 mainRouter.use(function(req, res, next)
