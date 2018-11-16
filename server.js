@@ -86,7 +86,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use('/api', MainRouter);
 
 app.get('/', function (req, res) {
- res.sendFile(path.join(__dirname,'public', 'index.html'));
+ return res.sendFile(path.join(__dirname,'public', 'index.html'));
  });
 
 
