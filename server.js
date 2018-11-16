@@ -26,7 +26,7 @@ mongoose.connect('mongodb://heroku_p1wdhspx:v75n2bmfigpsslule8iq2rlti1@ds045147.
 var numExpectedSources = 2;
 var store = new MongoDBStore(
   {
-    uri: 'mongodb://mongodb://heroku_p1wdhspx:v75n2bmfigpsslule8iq2rlti1@ds045147.mlab.com:45147/heroku_p1wdhspx',  //connect_mongodb_session
+    uri: 'mongodb://heroku_p1wdhspx:v75n2bmfigpsslule8iq2rlti1@ds045147.mlab.com:45147/heroku_p1wdhspx',  //connect_mongodb_session
     databaseName: 'heroku_p1wdhspx',
     collection: 'mySessions'
   },
