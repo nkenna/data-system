@@ -14,9 +14,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://cstd:nkenna007@ds045147.mlab.com:45147/heroku_p1wdhspx', { useNewUrlParser: true })
+mongoose.connect('mongodb://heroku_p1wdhspx:v75n2bmfigpsslule8iq2rlti1@ds045147.mlab.com:45147/heroku_p1wdhspx', { useNewUrlParser: true })
 .then(() =>  console.log('connection succesful'))
 .catch((err) => console.error(err));
+
+
 
 //mongoose.connect('mongodb://cstd:nkenna007@ds045147.mlab.com:45147/heroku_p1wdhspx');
 
@@ -24,7 +26,7 @@ mongoose.connect('mongodb://cstd:nkenna007@ds045147.mlab.com:45147/heroku_p1wdhs
 var numExpectedSources = 2;
 var store = new MongoDBStore(
   {
-    uri: 'mongodb://cstd:nkenna007@ds045147.mlab.com:45147/heroku_p1wdhspx',  //connect_mongodb_session
+    uri: 'mongodb://mongodb://heroku_p1wdhspx:v75n2bmfigpsslule8iq2rlti1@ds045147.mlab.com:45147/heroku_p1wdhspx',  //connect_mongodb_session
     databaseName: 'cstdapi_db',
     collection: 'mySessions'
   },
