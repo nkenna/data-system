@@ -117,7 +117,7 @@ mainRouter.route('/download-report').get((req, res) => {
   });
 })
 
-mainRouter.route('/toprofile').get((req, res) => {
+mainRouter.route('/allpro').get((req, res) => {
  
   var leave_data = []
 
@@ -136,7 +136,7 @@ mainRouter.route('/toprofile').get((req, res) => {
 
           }
           console.log(leave_data)
-          res.status(200).render('toprofile', {moment: moment, admin: req.session.admin, staffs: staffs, leaves: leave_data});
+          res.status(200).render('allpro', {moment: moment, admin: req.session.admin, staffs: staffs, leaves: leave_data});
         })     
   
       }
@@ -154,7 +154,7 @@ String.prototype.capitalizeFirstLetter = function() {
   return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
 }
 
-mainRouter.route('/toprofile-filter').post((req, res) => {
+mainRouter.route('/allpro-filter').post((req, res) => {
   var pf = req.body.pf;
   var opt = req.body.opt;
   var leave_data = []
@@ -174,7 +174,7 @@ mainRouter.route('/toprofile-filter').post((req, res) => {
               }
             }
             
-            return res.status(200).render('toprofile', {moment: moment, admin: req.session.admin, staffs: staffs, leaves: leave_data});
+            return res.status(200).render('allpro', {moment: moment, admin: req.session.admin, staffs: staffs, leaves: leave_data});
           })
         }
       })
@@ -191,7 +191,7 @@ mainRouter.route('/toprofile-filter').post((req, res) => {
               }
             }
             
-            return res.status(200).render('toprofile', {moment: moment, admin: req.session.admin, staffs: staffs, leaves: leave_data});
+            return res.status(200).render('allpro', {moment: moment, admin: req.session.admin, staffs: staffs, leaves: leave_data});
           })
         }
       })
@@ -208,7 +208,7 @@ mainRouter.route('/toprofile-filter').post((req, res) => {
               }
             }
             
-            return res.status(200).render('toprofile', {moment: moment, admin: req.session.admin, staffs: staffs, leaves: leave_data});
+            return res.status(200).render('allpro', {moment: moment, admin: req.session.admin, staffs: staffs, leaves: leave_data});
           })
         }
       })
@@ -226,7 +226,7 @@ mainRouter.route('/toprofile-filter').post((req, res) => {
               }
             }
                
-            res.status(200).render('toprofile', {moment: moment, admin: req.session.admin, staffs: staffs, leaves: leave_data});
+            res.status(200).render('allpro', {moment: moment, admin: req.session.admin, staffs: staffs, leaves: leave_data});
           })
         }
       })
@@ -243,7 +243,7 @@ mainRouter.route('/toprofile-filter').post((req, res) => {
               }
             }
            
-            res.status(200).render('toprofile', {moment: moment, admin: req.session.admin, staffs: staffs, leaves: leave_data});
+            res.status(200).render('allpro', {moment: moment, admin: req.session.admin, staffs: staffs, leaves: leave_data});
           })  
          
         }
@@ -261,7 +261,7 @@ mainRouter.route('/toprofile-filter').post((req, res) => {
               }
             }
            
-            res.status(200).render('toprofile', {moment: moment, admin: req.session.admin, staffs: staffs, leaves: leave_data});
+            res.status(200).render('allpro', {moment: moment, admin: req.session.admin, staffs: staffs, leaves: leave_data});
           })  
          
         }
@@ -280,7 +280,7 @@ mainRouter.route('/toprofile-filter').post((req, res) => {
               }
             }
           
-            res.status(200).render('toprofile', {moment: moment, admin: req.session.admin, staffs: staffs, leaves: leave_data});
+            res.status(200).render('allpro', {moment: moment, admin: req.session.admin, staffs: staffs, leaves: leave_data});
           })  
          
         }
@@ -294,7 +294,7 @@ mainRouter.route('/toprofile-filter').post((req, res) => {
     
 })
 
-mainRouter.route('/toprofile').post((req, res) => {
+mainRouter.route('/allpro').post((req, res) => {
   var pf = req.body.pf;
   console.log(pf);
   var pic = pf;
