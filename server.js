@@ -46,8 +46,8 @@ store.on('error', function(error) {
 
 
 
-//const port = 3000;
-const port = process.env.PORT || 8000;
+const port = 3000;
+//const port = process.env.PORT || 8000;
 
 app.use(function(req, res, next)
 {
@@ -78,7 +78,10 @@ app.use(session({
 
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+//app.set('views', path.join(__dirname, 'views'));
+
+app.set('views', path.join(process.cwd() + '/views'));
+//app.use(express.static(path.join(process.cwd() + '/public')));
 
 
 

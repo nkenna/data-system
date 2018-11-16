@@ -118,6 +118,7 @@ mainRouter.route('/download-report').get((req, res) => {
 })
 
 mainRouter.route('/toprofile').get((req, res) => {
+ 
   var leave_data = []
 
     if(req.session.admin){
