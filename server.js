@@ -27,11 +27,12 @@ var numExpectedSources = 2;
 var store = new MongoDBStore(
   {
     uri: 'mongodb://mongodb://heroku_p1wdhspx:v75n2bmfigpsslule8iq2rlti1@ds045147.mlab.com:45147/heroku_p1wdhspx',  //connect_mongodb_session
-    databaseName: 'cstdapi_db',
+    databaseName: 'heroku_p1wdhspx',
     collection: 'mySessions'
   },
   function(error) {
     // Should have gotten an error
+    console.log(error)
   });
 
   store.on('connected', function() {
