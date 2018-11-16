@@ -1195,6 +1195,11 @@ mainRouter.route('/add-record').post((req, res) => {
 
 mainRouter.route('/staff-att').get((req, res) => {
   var stat = false;
+  //construct date first
+  var a_in; 
+  var a_out; 
+
+ 
   if(req.session.admin){
     
   }else{
@@ -1317,598 +1322,254 @@ mainRouter.route('/staff-att').get((req, res) => {
                             }
 
           //find all records in January and is early login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 0 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') > 30 && jan_record.event == 'login'){
-            ja_late_record =+ 1
+          a_in = moment(jan_record.time).get('year') + '-' +   moment(jan_record.time).get('month') +1 + '-' + moment(jan_record.time).get('date') + ' 09:30:55'
+          a_out = moment(jan_record.time).get('year') + '-' +   moment(jan_record.time).get('month') +1 + '-' + moment(jan_record.time).get('date') + ' 04:45:55'
+          
+          
+          if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 0 && jan_record.event == 'login'){
+            if(moment(a_in).isBefore(jan_record.time)){
+              
+              ja_early_record += 1
+            }else{
+              
+              ja_late_record += 1
+            }
             
-          }
+          }else if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 0 && jan_record.event == 'logout' ){
+            if(moment(a_out).isAfter(moment(jan_record.time))){
+              
+              ja_lateL_record += 1
+              
+            }else{
+              
+              ja_earlyL_record += 1
+            }
 
-          //find all records in January and is early login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 0 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') <= 30 && jan_record.event == 'login'){
-            ja_early_record =+ 1
-            
-          }          
-
-          //find all records in January and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 0 && moment(jan_record.time).get('hour') > 9 && jan_record.event == 'login'  ){
-            ja_late_record =+ 1        
-            
           }
-
-          //find all records in January and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 0 && moment(jan_record.time).get('hour') < 9 && jan_record.event == 'login'  ){
-            ja_early_record =+ 1        
-            
-          }
-
-          //find all records in January and is early logout
-          if ( moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 0 && moment(jan_record.time).get('hour') < 4 && jan_record.event == 'logout'){
-            console.log('')
-            ja_earlyL_record =+ 1
-          }
-
-          //find all records in January and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 0 && moment(jan_record.time).get('hour') > 5 && jan_record.event == 'logout'){
-            console.log('')
-            ja_lateL_record =+ 1
-          }
-
-          //find all records in January and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 0 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') < 45 && jan_record.event == 'logout'){
-            console.log('')
-            ja_earlyL_record =+ 1
-          }
-
-          //find all records in January and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 0 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') >= 45 && jan_record.event == 'logout'){
-            console.log('')
-            ja_lateL_record =+ 1
-          }
+                    
 
           //febuary
            //find all records in January and is early login
-           if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 1 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') > 30 && jan_record.event == 'login'){
-            fe_late_record += 1
+           if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 1 && jan_record.event == 'login'){
+            if(moment(a_in).isBefore(jan_record.time)){
+              fe_early_record += 1
+            }else{
+              fe_late_record += 1
+            }
             
-          }
+          }else if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 1 && jan_record.event == 'logout' ){
+            if(moment(a_out).isAfter(moment(jan_record.time))){
+              fe_lateL_record += 1              
+            }else{              
+              fe_earlyL_record += 1
+            }
 
-          //find all records in January and is early login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 1 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') <= 30 && jan_record.event == 'login'){
-            fe_early_record += 1
-            
           }          
-
-          //find all records in January and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 1 && moment(jan_record.time).get('hour') > 9 && jan_record.event == 'login'  ){
-            fe_late_record += 1         
-            
-          }
-
-          //find all records in January and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 1 && moment(jan_record.time).get('hour') < 9 && jan_record.event == 'login'  ){
-            fe_early_record+= 1;         
-            
-          }
-
-          //find all records in January and is early logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 1 && moment(jan_record.time).get('hour') < 4 && jan_record.event == 'logout'){
-            console.log('')
-            fe_earlyL_record += 1
-          }
-
-          //find all records in January and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 1 && moment(jan_record.time).get('hour') > 5 && jan_record.event == 'logout'){
-            console.log('')
-            fe_lateL_record += 1
-          }
-
-          //find all records in January and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 1 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') < 45 && jan_record.event == 'logout'){
-            console.log('')
-            fe_earlyL_record += 1
-          }
-
-          //find all records in January and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 1 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') >= 45 && jan_record.event == 'logout'){
-            console.log('')
-            fe_lateL_record += 1
-          }
 
 
           //mar
            //find all records in mar and is early login
-           if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 2 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') > 30 && jan_record.event == 'login'){
-            ma_late_record  += 1
+
+           if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 2 && jan_record.event == 'login'){
+            if(moment(a_in).isBefore(jan_record.time)){
+              ma_early_record += 1
+            }else{
+              ma_late_record += 1
+            }
             
+          }else if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 2 && jan_record.event == 'logout' ){
+            if(moment(a_out).isAfter(moment(jan_record.time))){
+              ma_lateL_record += 1              
+            }else{              
+              ma_earlyL_record += 1
+            }
+
           }
 
-          //find all records in mar and is early login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 2 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') <= 30 && jan_record.event == 'login'){
-            ma_early_record  += 1
-            
-          }          
-
-          //find all records in mar and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 2 && moment(jan_record.time).get('hour') > 9 && jan_record.event == 'login'  ){
-            ma_late_record  += 1         
-            
-          }
-
-          //find all records in mar and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 2 && moment(jan_record.time).get('hour') < 9 && jan_record.event == 'login'  ){
-            ma_early_record  += 1        
-            
-          }
-
-          //find all records in mar and is early logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 2 && moment(jan_record.time).get('hour') < 4 && jan_record.event == 'logout'){
-            
-            ma_earlyL_record  += 1
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 2 && moment(jan_record.time).get('hour') > 5 && jan_record.event == 'logout'){
-            
-            ma_lateL_record  += 1
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 2 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') < 45 && jan_record.event == 'logout'){
            
-            ma_earlyL_record  += 1
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 2 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') >= 45 && jan_record.event == 'logout'){
-            
-            ma_lateL_record  += 1
-          }
-
-
            //apr
            //find all records in mar and is early login
-           if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 3 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') >= 30 && jan_record.event == 'login'){
-            apr_late_record  += 1
+
+           if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 3 && jan_record.event == 'login'){
+            if(moment(a_in).isBefore(jan_record.time)){
+              apr_early_record += 1
+            }else{
+              apr_late_record += 1
+            }
             
+          }else if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 3 && jan_record.event == 'logout' ){
+            if(moment(a_out).isAfter(moment(jan_record.time))){
+              apr_lateL_record += 1              
+            }else{              
+              apr_earlyL_record += 1
+            }
+
           }
 
-          //find all records in mar and is early login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 3 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') < 30 && jan_record.event == 'login'){
-            apr_early_record  += 1
-            
-          }          
-
-          //find all records in mar and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 3 && moment(jan_record.time).get('hour') > 9 && jan_record.event == 'login'  ){
-            apr_late_record  += 1        
-            
-          }
-
-          //find all records in mar and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 3 && moment(jan_record.time).get('hour') < 9 && jan_record.event == 'login'  ){
-            apr_early_record  += 1        
-            
-          }
-
-          //find all records in mar and is early logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 3 && moment(jan_record.time).get('hour') < 4 && jan_record.event == 'logout'){
-            
-            apr_earlyL_record  += 1
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 3 && moment(jan_record.time).get('hour') > 5 && jan_record.event == 'logout'){
-            console.log('')
-            apr_lateL_record  += 1
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 3 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') < 45 && jan_record.event == 'logout'){
-            
-            apr_earlyL_record  += 1
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 3 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') >= 45 && jan_record.event == 'logout'){
-            
-            apr_lateL_record  += 1
-          }
-
+          
            //may
            //find all records in mar and is early login
-           if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 4 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') > 30 && jan_record.event == 'login'){
-            may_late_record  += 1
+
+           if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 4 && jan_record.event == 'login'){
+            if(moment(a_in).isBefore(jan_record.time)){
+              may_early_record += 1
+            }else{
+              may_late_record += 1
+            }
             
+          }else if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 4 && jan_record.event == 'logout' ){
+            if(moment(a_out).isAfter(moment(jan_record.time))){
+              may_lateL_record += 1              
+            }else{              
+              may_earlyL_record += 1
+            }
+
           }
 
-          //find all records in mar and is early login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 4 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') <= 30 && jan_record.event == 'login'){
-            may_early_record  += 1
-            
-          }          
-
-          //find all records in mar and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 4 && moment(jan_record.time).get('hour') > 9 && jan_record.event == 'login'  ){
-            may_late_record  += 1        
-            
-          }
-
-          //find all records in mar and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 4 && moment(jan_record.time).get('hour') < 9 && jan_record.event == 'login'  ){
-            may_early_record  += 1       
-            
-          }
-
-          //find all records in mar and is early logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 4 && moment(jan_record.time).get('hour') < 4 && jan_record.event == 'logout'){
-            
-            may_earlyL_record  += 1
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 4 && moment(jan_record.time).get('hour') > 5 && jan_record.event == 'logout'){
-            
-            may_lateL_record  += 1
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 4 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') < 45 && jan_record.event == 'logout'){
-            
-            may_earlyL_record  += 1
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 4 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') >= 45 && jan_record.event == 'logout'){
-            
-            may_lateL_record  += 1
-          }
-
+          
 
            //june
            //find all records in mar and is early login
-           if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 5 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') > 30 && jan_record.event == 'login'){
-            jun_late_record+= 1;
+           if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 5 && jan_record.event == 'login'){
+            if(moment(a_in).isBefore(jan_record.time)){
+              jun_early_record += 1
+            }else{
+              jun_late_record += 1
+            }
             
-          }
+          }else if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 5 && jan_record.event == 'logout' ){
+            if(moment(a_out).isAfter(moment(jan_record.time))){
+              jun_lateL_record += 1              
+            }else{              
+              jun_earlyL_record += 1
+            }
 
-          //find all records in mar and is early login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 5 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') <= 30 && jan_record.event == 'login'){
-            jun_early_record+= 1;
-            
-          }          
-
-          //find all records in mar and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 5 && moment(jan_record.time).get('hour') > 9 && jan_record.event == 'login'  ){
-            jun_late_record+= 1;         
-            
-          }
-
-          //find all records in mar and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 5 && moment(jan_record.time).get('hour') < 9 && jan_record.event == 'login'  ){
-            jun_early_record+= 1;         
-            
-          }
-
-          //find all records in mar and is early logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 5 && moment(jan_record.time).get('hour') < 4 && jan_record.event == 'logout'){
-            console.log('')
-            jun_earlyL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 5 && moment(jan_record.time).get('hour') > 5 && jan_record.event == 'logout'){
-            console.log('')
-            jun_lateL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 5 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') < 45 && jan_record.event == 'logout'){
-            console.log('')
-            jun_earlyL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 5 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') >= 45 && jan_record.event == 'logout'){
-            console.log('')
-            jun_lateL_record+= 1;
           }
 
 
            //july
            //find all records in mar and is early login
-           if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 6 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') > 30 && jan_record.event == 'login'){
-            jul_late_record+= 1;
+           if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 6 && jan_record.event == 'login'){
+            if(moment(a_in).isBefore(jan_record.time)){
+              jul_early_record += 1
+            }else{
+              jul_late_record += 1
+            }
             
+          }else if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 6 && jan_record.event == 'logout' ){
+            if(moment(a_out).isAfter(moment(jan_record.time))){
+              jul_lateL_record += 1              
+            }else{              
+              jul_earlyL_record += 1
+            }
+
           }
 
-          //find all records in mar and is early login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 6 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') <= 30 && jan_record.event == 'login'){
-            jul_early_record+= 1;
-            
-          }          
 
-          //find all records in mar and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 6 && moment(jan_record.time).get('hour') > 9 && jan_record.event == 'login'  ){
-            jul_late_record+= 1;         
-            
-          }
-
-           //find all records in mar and is late login
-           if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 6 && moment(jan_record.time).get('hour') < 9 && jan_record.event == 'login'  ){
-            jul_early_record+= 1;         
-            
-          }
-
-          //find all records in mar and is early logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 6 && moment(jan_record.time).get('hour') < 4 && jan_record.event == 'logout'){
-            console.log('')
-            jul_earlyL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 6 && moment(jan_record.time).get('hour') > 5 && jan_record.event == 'logout'){
-            console.log('')
-            jul_lateL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 6 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') < 45 && jan_record.event == 'logout'){
-            console.log('')
-            jul_earlyL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 6 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') >= 45 && jan_record.event == 'logout'){
-            console.log('')
-            jul_lateL_record+= 1;
-          }
-
+          
            //aug
            //find all records in mar and is early login
-           if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 7 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') > 30 && jan_record.event == 'login'){
-            aug_late_record+= 1;
+           if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 7 && jan_record.event == 'login'){
+            if(moment(a_in).isBefore(jan_record.time)){
+              console.log(jan_record.time)
+              console.log(111)
+              aug_early_record += 1
+            }else{
+              console.log(jan_record.time)
+              console.log(222)
+              
+              aug_late_record += 1
+              console.log(aug_late_record)
+            }
             
+          }else if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 7 && jan_record.event == 'logout' ){
+            if(moment(a_out).isAfter(moment(jan_record.time))){
+              console.log(jan_record.time)
+              console.log(333)
+              console.log(aug_lateL_record)
+              aug_lateL_record += 1              
+            }else{   
+              console.log(jan_record.time)
+              console.log(444)           
+              
+              aug_earlyL_record = aug_earlyL_record + 1
+              console.log(aug_earlyL_record)
+            }
+
           }
 
-          //find all records in mar and is early login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 7 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') <= 30 && jan_record.event == 'login'){
-            aug_early_record+= 1;
-            
-          }          
-
-          //find all records in mar and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 7 && moment(jan_record.time).get('hour') > 9 && jan_record.event == 'login'  ){
-            aug_late_record+= 1;         
-            
-          }
-
-          //find all records in mar and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 7 && moment(jan_record.time).get('hour') < 9 && jan_record.event == 'login'  ){
-            aug_early_record+= 1;         
-            
-          }
-
-          //find all records in mar and is early logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 7 && moment(jan_record.time).get('hour') < 4 && jan_record.event == 'logout'){
-            console.log('')
-            aug_earlyL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 7 && moment(jan_record.time).get('hour') > 5 && jan_record.event == 'logout'){
-            console.log('')
-            aug_lateL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 7 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') < 45 && jan_record.event == 'logout'){
-            console.log('')
-            aug_earlyL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 7 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') >= 45 && jan_record.event == 'logout'){
-            console.log('')
-            aug_lateL_record+= 1;
-          }
+        
 
            //sept
            //find all records in mar and is early login
-           if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 8 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') > 30 && jan_record.event == 'login'){
-            sep_late_record+= 1;
+           if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 8 && jan_record.event == 'login'){
+            if(moment(a_in).isBefore(jan_record.time)){
+              sep_early_record += 1
+            }else{
+              sep_late_record += 1
+            }
             
+          }else if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 8 && jan_record.event == 'logout' ){
+            if(moment(a_out).isAfter(moment(jan_record.time))){
+              sep_lateL_record += 1              
+            }else{              
+              sep_earlyL_record += 1
+            }
+
           }
-
-          //find all records in mar and is early login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 8 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') <= 30 && jan_record.event == 'login'){
-            sep_early_record+= 1;
-            
-          }          
-
-          //find all records in mar and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 8 && moment(jan_record.time).get('hour') > 9 && jan_record.event == 'login'  ){
-            sep_late_record+= 1;         
-            
-          }
-
-          //find all records in mar and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 8 && moment(jan_record.time).get('hour') < 9 && jan_record.event == 'login'  ){
-            sep_early_record+= 1;         
-            
-          }
-
-          //find all records in mar and is early logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 8 && moment(jan_record.time).get('hour') < 4 && jan_record.event == 'logout'){
-            console.log('')
-            sep_earlyL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 8 && moment(jan_record.time).get('hour') > 5 && jan_record.event == 'logout'){
-            console.log('')
-            sep_lateL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 8 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') < 45 && jan_record.event == 'logout'){
-            console.log('')
-            sep_earlyL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 8 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') >= 45 && jan_record.event == 'logout'){
-            console.log('')
-            sep_lateL_record+= 1;
-          }
-
 
            //october
            //find all records in mar and is early login
-           if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 9 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') > 30 && jan_record.event == 'login'){
-            oct_late_record+= 1;
+           if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 9 && jan_record.event == 'login'){
+            if(moment(a_in).isBefore(jan_record.time)){
+              oct_early_record += 1
+            }else{
+              oct_late_record += 1
+            }
             
+          }else if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 9 && jan_record.event == 'logout' ){
+            if(moment(a_out).isAfter(moment(jan_record.time))){
+              oct_lateL_record += 1              
+            }else{              
+              oct_earlyL_record += 1
+            }
+
           }
-
-
-          //find all records in mar and is early login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 9 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') <= 30 && jan_record.event == 'login'){
-            oct_early_record+= 1;
-            
-          }          
-
-          //find all records in mar and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 9 && moment(jan_record.time).get('hour') > 9 && jan_record.event == 'login'  ){
-            oct_late_record+= 1;         
-            
-          }
-
-          //find all records in mar and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 9 && moment(jan_record.time).get('hour') < 9 && jan_record.event == 'login'  ){
-            oct_early_record+= 1;         
-            
-          }
-
-          //find all records in mar and is early logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 9 && moment(jan_record.time).get('hour') < 4 && jan_record.event == 'logout'){
-            console.log('')
-            oct_earlyL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 9 && moment(jan_record.time).get('hour') > 5 && jan_record.event == 'logout'){
-            console.log('')
-            oct_lateL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 9 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') < 45 && jan_record.event == 'logout'){
-            console.log('')
-            oct_earlyL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 9 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') >= 45 && jan_record.event == 'logout'){
-            console.log('')
-            oct_lateL_record+= 1;
-          }
-
-           
 
            //nov
            //find all records in mar and is early login
-           if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 10 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') > 30 && jan_record.event == 'login'){
-            nov_late_record+= 1;
+           if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 10 && jan_record.event == 'login'){
+            if(moment(a_in).isBefore(jan_record.time)){
+              nov_early_record += 1
+            }else{
+              nov_late_record += 1
+            }
             
-          }
+          }else if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 10 && jan_record.event == 'logout' ){
+            if(moment(a_out).isAfter(moment(jan_record.time))){
+              nov_lateL_record += 1              
+            }else{              
+              nov_earlyL_record += 1
+            }
 
-          //find all records in mar and is early login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 10 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') <= 30 && jan_record.event == 'login'){
-            nov_early_record+= 1;
-            
-          }    
-          
-          //find all records in mar and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 10 && moment(jan_record.time).get('hour') < 9 && jan_record.event == 'login'  ){
-            nov_early_record+= 1;         
-            
-          }
-
-          //find all records in mar and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 10 && moment(jan_record.time).get('hour') > 9 && jan_record.event == 'login'  ){
-            nov_late_record+= 1;         
-            
-          }
-
-          //find all records in mar and is early logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 10 && moment(jan_record.time).get('hour') < 4 && jan_record.event == 'logout'){
-            console.log('')
-            nov_earlyL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 10 && moment(jan_record.time).get('hour') > 5 && jan_record.event == 'logout'){
-            console.log('')
-            nov_lateL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 10 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') < 45 && jan_record.event == 'logout'){
-            console.log('')
-            nov_earlyL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 10 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') >= 45 && jan_record.event == 'logout'){
-            console.log('')
-            nov_lateL_record+= 1;
           }
 
            //december
            //find all records in mar and is early login
-           if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 11 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') > 30 && jan_record.event == 'login'){
-            dec_late_record+= 1;
+           if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 11 && jan_record.event == 'login'){
+            if(moment(a_in).isBefore(jan_record.time)){
+              dec_early_record += 1
+            }else{
+              dec_late_record += 1
+            }
             
-          }
+          }else if(moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 11 && jan_record.event == 'logout' ){
+            if(moment(a_out).isAfter(moment(jan_record.time))){
+              dec_lateL_record += 1              
+            }else{              
+              dec_earlyL_record += 1
+            }
 
-          //find all records in mar and is early login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 11 && moment(jan_record.time).get('hour') == 9 &&  moment(jan_record.time).get('minute') <= 30 && jan_record.event == 'login'){
-            dec_early_record+= 1;
-            
-          }          
-
-          //find all records in mar and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 11 && moment(jan_record.time).get('hour') > 9 && jan_record.event == 'login'  ){
-            dec_late_record+= 1;         
-            
-          }
-
-          //find all records in mar and is late login
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 11 && moment(jan_record.time).get('hour') < 9 && jan_record.event == 'login'  ){
-            dec_early_record+= 1;         
-            
-          }
-
-          //find all records in mar and is early logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 11 && moment(jan_record.time).get('hour') < 4 && jan_record.event == 'logout'){
-            console.log('')
-            dec_earlyL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 11 && moment(jan_record.time).get('hour') > 4 && jan_record.event == 'logout'){
-            console.log('')
-            dec_lateL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 11 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') < 45 && jan_record.event == 'logout'){
-            console.log('')
-            dec_earlyL_record+= 1;
-          }
-
-          //find all records in mar and is late logout
-          if (moment(jan_record.time).get('year') == year && moment(jan_record.time).get('month') == 11 && moment(jan_record.time).get('hour') == 4 && moment(jan_record.time).get('minute') >= 45 && jan_record.event == 'logout'){
-            console.log('')
-            dec_lateL_record+= 1;
           }
 
 

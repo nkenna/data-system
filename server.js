@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://heroku_p1wdhspx:v75n2bmfigpsslule8iq2rlti1@ds045147.mlab.com:45147/heroku_p1wdhspx', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost:27017/cstdapi_db', { useNewUrlParser: true })
 .then(() =>  console.log('connection succesful'))
 .catch((err) => console.error(err));
 
@@ -26,13 +26,15 @@ mongoose.connect('mongodb://heroku_p1wdhspx:v75n2bmfigpsslule8iq2rlti1@ds045147.
 var numExpectedSources = 2;
 var store = new MongoDBStore(
   {
-    uri: 'mongodb://heroku_p1wdhspx:v75n2bmfigpsslule8iq2rlti1@ds045147.mlab.com:45147/heroku_p1wdhspx',  //connect_mongodb_session
-    databaseName: 'heroku_p1wdhspx',
+    uri: 'mongodb://localhost:27017/cstdapi_db',  //connect_mongodb_session
+    databaseName: 'cstdapi_db',
     collection: 'mySessions'
   },
   function(error) {
     // Should have gotten an error
+    if(error){
     console.log(error)
+    }
   });
 
   store.on('connected', function() {
@@ -46,8 +48,8 @@ store.on('error', function(error) {
 
 
 
-//const port = 3000;
-const port = process.env.PORT || 8000 || 3000;
+const port = 3000;
+//const port = process.env.PORT || 8000 || 3000;
 
 app.use(function(req, res, next)
 {
