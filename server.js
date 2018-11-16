@@ -46,8 +46,8 @@ store.on('error', function(error) {
 
 
 
-const port = 3000;
-//const port = process.env.PORT || 8000;
+//const port = 3000;
+const port = process.env.PORT || 8000;
 
 app.use(function(req, res, next)
 {
