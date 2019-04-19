@@ -110,10 +110,7 @@ mainRouter.route('/upload').post((req, res) => {
 
 mainRouter.route('/test').get((req, res) => {
   var deviceID = req.query.deviceName;
-  
-  if (err){
-    return res.send('error verifying Device ID');
-  }
+
   
   if(deviceID == 'malacure-0001'){
      return res.send('valid');
